@@ -2,8 +2,9 @@ const express = require("express")
 const cors = require("cors")
 const app = express()
 const PORT = process.env.PORT || 5000
-const dbURi = "mongodb+srv://Muqads:Muqads123@cluster0.zh5ajuh.mongodb.net/?retryWrites=true&w=majority"
-// const base_url = "https://smiling-suit-moth.cyclic.app"
+// const dbURi = "mongodb+srv://Muqads:Muqads123@cluster0.zh5ajuh.mongodb.net/?retryWrites=true&w=majority"
+const dbURi = "mongodb+srv://admin:12345@cluster0.bpdluli.mongodb.net/test";
+// const base_url = "https://shy-cyan-sturgeon-yoke.cyclic.app/"
 app.use(express.json())
 app.use(cors())
 const mongoose = require("mongoose")
@@ -13,6 +14,7 @@ const todoModel = require("./models/todo")
 const cardModel = require("./models/card")
 const wishCardModel = require("./models/wishCards")
 var bcrypt = require('bcryptjs');
+
 mongoose.connect(dbURi)
   .then((res) => {
     console.log("Mongo Connect")
