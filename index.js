@@ -124,7 +124,7 @@ app.post("/request", (req, res) => {
   } else {
     const objToSend = {
       name: name,
-      phoneNumber: phoneNumber,
+      phone_number: phoneNumber,
       email: email,
       category,
       threat,
