@@ -61,7 +61,7 @@ app.post("/signup", (req, res) => {
             })
           } else {
             res.json({
-              message: "User Signup Successfully",
+              message: "User Created Successfully",
               status: "true",
               data,
             })
@@ -84,7 +84,7 @@ app.post("/login", (req, res) => {
     signupUsers.findOne({ email: email }, (error, user) => {
       if (error) {
         res.json({
-          message: "Internal Error",
+          message: "Internal Server Error",
           status: "false"
         })
       } else if (!user) {
@@ -111,6 +111,43 @@ app.post("/login", (req, res) => {
   }
 
 })
+
+//Request API
+app.post("/request", (req, res) => {
+  const { name, phoneNumber, email, category, threat, status, coordinates } = req.body
+  if (!firstName || !phoneNumber || !email || !category || !threat || !status || !coordinates) {
+    res.json({
+      message: "Required Fields are missing",
+      status: "false"
+    })
+  } else {
+    const objToSend = {
+      name: name,
+      phoneNumber: phoneNumber,
+      email: email,
+      category,
+      threat,
+      status,
+      coordinates,
+    }
+    requests.create(objToSend, (error, data) => {
+      if (error) {
+        res.json({
+          message: "Internal Error",
+          status: "false"
+        })
+      } else {
+        res.json({
+          message: "Request Sent Successfully",
+          status: "true",
+          data,
+        })
+      }
+    })
+  }
+})
+
+
 
 
 
