@@ -128,12 +128,13 @@ app.post("/request", (req, res) => {
           message: "Internal Error",
           status: "false"
         })
-      } else if (user) {
+      } else if (!user) {
         res.json({
           message: "Your Previous Request is Pending.",
           status: "false"
         })
       } else {
+
         const objToSend = {
           name,
           threat,
@@ -154,10 +155,16 @@ app.post("/request", (req, res) => {
               data,
             })
           }
+
         })
       }
     })
+
+
   }
+
+
+
 })
 
 
