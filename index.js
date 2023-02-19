@@ -9,6 +9,7 @@ app.use(express.json())
 app.use(cors())
 const mongoose = require("mongoose")
 const userModel = require("./models/user")
+const requestModel = require("./models/request")
 const signupUsers = require("./models/signup")
 const todoModel = require("./models/todo")
 const cardModel = require("./models/card")
@@ -130,7 +131,7 @@ app.post("/request", (req, res) => {
       status,
       coordinates,
     }
-    requests.create(objToSend, (error, data) => {
+    requestModel.create(objToSend, (error, data) => {
       if (error) {
         res.json({
           message: "Internal Error",
