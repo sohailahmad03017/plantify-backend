@@ -115,33 +115,45 @@ app.post("/login", (req, res) => {
 
 //Request API
 app.post("/request", (req, res) => {
-  const { name, phoneNumber, email, category, threat, status, coordinates } = req.body
-  if (!firstName || !phoneNumber || !email || !category || !threat || !status || !coordinates) {
+  const { name, threat, category, phoneNumber, email, status, latitude, longitude } = req.body
+  if (!name || !threat) {
     res.json({
       message: "Required Fields are missing",
       status: "false"
     })
   } else {
-    const objToSend = {
-      name: name,
-      phone_number: phoneNumber,
-      email: email,
-      category,
-      threat,
-      status,
-      coordinates,
-    }
-    requestModel.create(objToSend, (error, data) => {
+    signupUsers.findOne({ email: email }, (error, user) => {
       if (error) {
         res.json({
           message: "Internal Error",
           status: "false"
         })
-      } else {
+      } else if (user) {
         res.json({
-          message: "Request Sent Successfully",
-          status: "true",
-          data,
+          message: "Your Previous Request is Pending.",
+          status: "false"
+        })
+      } else {
+        const objToSend = {
+          name,
+          threat,
+          category,
+          phone_number: phoneNumber,
+          status, latitude, longitude
+        }
+        requestModel.create(objToSend, (error, data) => {
+          if (error) {
+            res.json({
+              message: "Internal Error",
+              status: "false"
+            })
+          } else {
+            res.json({
+              message: "Request Sent Successfully",
+              status: "true",
+              data,
+            })
+          }
         })
       }
     })

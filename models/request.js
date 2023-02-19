@@ -6,7 +6,8 @@ const requestSchema = mongoose.Schema({
     category: String,
     threat: String,
     status: String,
-    coordinates: Object,
+    longitude: Number,
+    latitude: Number,
 })
 const requestModel = mongoose.model("request", requestSchema)
 module.exports = requestSchema
